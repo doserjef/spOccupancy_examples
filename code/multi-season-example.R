@@ -22,33 +22,37 @@ library(ggplot2)
 # Read in the data source (reads in an object called data.list)
 load("data/doser2021EcoApps.rda")
 str(data.list)
+# Note the detection-nondetection data are stored as a three-dimensional
+# array with dimensions of site, year, and replication. Also note the 
+# occupancy covariates are now stored as a list as they can vary across both 
+# space and season.
 
 # 2. Model fitting --------------------------------------------------------
 # Fit a non-spatial, multi-season occupancy model. 
-out <- tPGOcc(occ.formula = ~ regen + basalArea + I(basalArea^2) + percentForest + (1 | site.index) + 
-	                      scale(year),
+out <- tPGOcc(occ.formula = ~ regen + basalArea + I(basalArea^2) + percentForest + 
+                              (1 | site.index) + scale(year),
               det.formula = ~ basalArea + (1 | year), 
-	      data = data.list, 
-	      n.batch = 200,
-	      batch.length = 25,
-	      ar1 = TRUE,
-	      n.thin = 2, 
-	      n.burn = 3000, 
-	      n.chains = 3,
-	      n.report = 50)
+	            data = data.list, 
+	            n.batch = 200,
+	            batch.length = 25,
+	            ar1 = TRUE,
+	            n.thin = 2, 
+	            n.burn = 3000, 
+	            n.chains = 3,
+	            n.report = 50)
 summary(out)
 # Fit a spatial, multi-season occupancy model.
 out.sp <- stPGOcc(occ.formula = ~ regen + basalArea + I(basalArea^2) + percentForest + (1 | site.index) + 
-	                       (1 | year) + scale(year),
+	                                scale(year),
                   det.formula = ~ basalArea + (1 | year), 
-	          data = data.list, 
-	          n.batch = 200,
-	          batch.length = 25,
-	          ar1 = TRUE,
-	          n.thin = 2, 
-	          n.burn = 3000, 
-	          n.chains = 3,
-	          n.report = 50)
+	                data = data.list, 
+	                n.batch = 200,
+	                batch.length = 25,
+	                ar1 = TRUE,
+	                n.thin = 2, 
+	                n.burn = 3000, 
+	                n.chains = 3,
+	                n.report = 50)
 summary(out.sp)
 
 # 3. Model validation -----------------------------------------------------
@@ -92,8 +96,3 @@ ggplot(data = plot.df, aes(x = year, y = psi.mean)) +
   geom_segment(aes(x = year, y = psi.low, yend = psi.high, xend = year), size = 1) + 
   theme_bw(base_size = 18) + 
   labs(x = 'Year', y = 'Average Occupancy Probability')
-ggsave("figures/doser2021Trend.png", units = 'in', width = 6, height = 6)
-
-
-# 6. Prediction -----------------------------------------------------------
-

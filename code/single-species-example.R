@@ -66,7 +66,7 @@ summary(out)
 # Take a look at objects in resulting object
 names(out)
 str(out$beta.samples)
-# Probability the effect of density on occupancy is positive
+# Probability the effect of stream density on occupancy is positive
 mean(out$beta.samples[, 5] > 0)
 # Create simple plot summaries using MCMCvis package.
 # Occupancy covariate effects ---------

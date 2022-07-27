@@ -22,7 +22,7 @@ load("data/multiSpeciesRibeiroJr2018EcoApps.rda")
 str(data.list)
 
 # 2. Model fitting --------------------------------------------------------
-# Fit a non-spatial, single-species occupancy model. 
+# Fit a non-spatial, multi-species occupancy model. 
 out <- msPGOcc(occ.formula = ~ scale(forest) + scale(agriculture) + 
 	                             scale(catchment) + scale(density) + 
 	                             scale(slope), 
@@ -34,7 +34,7 @@ out <- msPGOcc(occ.formula = ~ scale(forest) + scale(agriculture) +
 	             n.chains = 3,
 	             n.report = 500)
 summary(out, level = 'community')
-# Fit a spatial, single-species occupancy model using latent factors.
+# Fit a spatial, multi-species occupancy model using latent factors.
 out.sp <- sfMsPGOcc(occ.formula = ~ scale(forest) + scale(agriculture) + 
 	                                  scale(catchment) + scale(density) + 
 	                                  scale(slope), 

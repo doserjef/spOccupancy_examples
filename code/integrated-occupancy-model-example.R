@@ -31,8 +31,8 @@ str(data.int)
 # Fit a non-spatial, integrated occupancy model. 
 # Approximate run time: 1.2 minutes
 out.full <- intPGOcc(occ.formula = ~ BATHY * SST,
-		     det.formula = list(samm = ~ eff.samm + ind.samm.2 + ind.samm.3 + ind.samm.4,
-		         	       gd = ~ eff.gd + ind.gd.2 + ind.gd.3 + ind.gd.4),
+		                 det.formula = list(samm = ~ eff.samm + ind.samm.2 + ind.samm.3 + ind.samm.4,
+		         	                          gd = ~ eff.gd + ind.gd.2 + ind.gd.3 + ind.gd.4),
                      data = data.int,
                      n.samples = 10000, 
                      n.omp.threads = 1, 
@@ -45,8 +45,8 @@ summary(out.full)
 # Fit non-spatial, integrated occupancy model with no interaction
 # Approximate run time: 1.2 minutes
 out.small <- intPGOcc(occ.formula = ~ BATHY + SST,
-		      det.formula = list(samm = ~ eff.samm + ind.samm.2 + ind.samm.3 + ind.samm.4,
-		          	       gd = ~ eff.gd + ind.gd.2 + ind.gd.3 + ind.gd.4),
+		                  det.formula = list(samm = ~ eff.samm + ind.samm.2 + ind.samm.3 + ind.samm.4,
+		          	                         gd = ~ eff.gd + ind.gd.2 + ind.gd.3 + ind.gd.4),
                       data = data.int,
                       n.samples = 10000, 
                       n.omp.threads = 1, 
@@ -96,16 +96,14 @@ MCMCplot(out.small$alpha.samples, ref_ovl = TRUE, ci = c(50, 95))
 # Create a set of values across the range of observed SST values (note
 # values were standardized, so these are not on the real SST values cale).
 SST.pred.vals <- seq(min(data.int$occ.covs$SST), max(data.int$occ.covs$SST), 
-		     length.out = 100)
+		                 length.out = 100)
 
 # Predict occupancy across SST values at mean value of other occupancy covariates 
-pred.df <- as.matrix(data.frame(intercept = 1, BATHY = 0, 
-				SST = SST.pred.vals))
+pred.df <- as.matrix(data.frame(intercept = 1, BATHY = 0, SST = SST.pred.vals))
 out.pred <- predict(out.small, pred.df)
 str(out.pred)
 # Calculate the 2.5%, 50%, and 97.5% quantiles of the predicted occupancy values.
-psi.0.quants <- apply(out.pred$psi.0.samples, 2, quantile,
-		                  prob = c(0.025, 0.5, 0.975))
+psi.0.quants <- apply(out.pred$psi.0.samples, 2, quantile, prob = c(0.025, 0.5, 0.975))
 # Format the data for plotting with ggplot2
 psi.plot.dat <- data.frame(psi.med = psi.0.quants[2, ],
                            psi.low = psi.0.quants[1, ],
@@ -118,5 +116,4 @@ ggplot(psi.plot.dat, aes(x = SST, y = psi.med)) +
   theme_bw(base_size = 18) +
   scale_y_continuous(limits = c(0, 1)) +
   labs(x = 'Standardized SST', y = 'Occupancy Probability')
-ggsave('figures/lauret2021SST.png', units = 'in', width = 6, height = 6)
 

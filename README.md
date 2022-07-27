@@ -6,7 +6,7 @@
 
 ## About
 
-Occupancy modeling is a common approach to assess species distribution patterns across space and/or time while explicitly accounting for false absences in detection-nondetection data. Numerous extensions of the basic single-species occupancy model exist to model multiple species, spatial autocorrelation and to integrate multiple data types. This presentation discusses [spOccupancy](https://www.jeffdoser.com/files/spoccupancy-web/), an R package designed to fit a variety of Bayesian single-species and multi-species occupancy models. I first give a brief introduction of occupancy modeling as a robust form of species distribution model as well as spatial autocorrelation and how it arises in detection-nondetection data. I then introduce the `spOccupancy` package and detail how to fit single-species spatial and non-spatial occupancy models. In this repository, I provide examples of three additional forms of occupancy models fit by spOccupancy: (1) multi-species models, (2) integrated occupancy models, and (3) multi-season (spatio-temporal) occupancy models. The repository contains the presentation slides, the example data sets, and the R scripts for the four examples. 
+Occupancy modeling is a common approach to assess species distribution patterns across space and/or time while explicitly accounting for false absences in detection-nondetection data. Numerous extensions of the basic single-species occupancy model exist to model multiple species, spatial autocorrelation, and to integrate multiple data types. This presentation discusses [spOccupancy](https://www.jeffdoser.com/files/spoccupancy-web/), an R package designed to fit a variety of Bayesian single-species and multi-species occupancy models. I first give a brief introduction of occupancy modeling as a robust form of species distribution model as well as spatial autocorrelation and how it arises in detection-nondetection data. I then introduce the `spOccupancy` package and detail how to fit single-species spatial and non-spatial occupancy models. In this repository, I provide examples of three additional forms of occupancy models fit by spOccupancy: (1) multi-species models, (2) integrated occupancy models, and (3) multi-season (spatio-temporal) occupancy models. The repository contains the presentation slides, the example data sets, and the R scripts for the four examples. 
 
 ## Installing spOccupancy
 
@@ -40,7 +40,7 @@ install.packages(c("coda", "MCMCvis", "ggplot2"))
 
 ### Single-species and multi-species examples on tropical amphibians
 
-The goal for these examples is to assess how amphibian species occupancy patterns relates to a variety of landscape characteristis around 50 headwater streams in Brazil. Specifically, we will assess the effect of the following variables on amphibian species occupancy: 
+The goal for these examples is to assess how amphibian species occupancy patterns relate to a variety of landscape characteristics around 50 headwater streams in Brazil. Specifically, we will assess the effect of the following variables on amphibian species occupancy: 
 
 + `forest`: amount of forest land within surrounding landscape.
 + `agriculture`: amount of agricultural land within surrounding landscape.
@@ -79,3 +79,11 @@ We include the following covariates on detection`
 
 + `basalArea`: the average basal area at each site across the time period.
 + `year`: the year.  
+
+## Additional Resources
+
++ [Introductory open-source spOccupancy manuscript](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13897)
++ [spOccupancy website](https://www.jeffdoser.com/files/spoccupancy-web/index.html)
++ [spOccupancy vignettes](https://www.jeffdoser.com/files/spoccupancy-web/articles/index.html)
++ Package updates are posted on [my twitter account](https://twitter.com/jeffdoser18)
+
