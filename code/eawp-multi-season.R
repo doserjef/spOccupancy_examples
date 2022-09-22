@@ -1,6 +1,6 @@
-# multi-season-example.R: this script fits a multi-season occupancy model using
-#                          a small subset of data from Doser et al. (2021) 
-#                          using the spOccupancy R package.
+# eawp-multi-season.R: this script fits a multi-season occupancy model using
+#                      a small subset of data from Doser et al. (2021) 
+#                      using the spOccupancy R package.
 # Data source citation: 
 #   Doser, J. W., Weed, A. S., Zipkin, E. F., Miller, K. M., & Finley, A. O. (2021). 
 #     Trends in bird abundance differ among protected forests but not bird guilds. 

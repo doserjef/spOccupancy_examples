@@ -1,4 +1,4 @@
-# integrated-occupancy-model-example.R: this script fits an integrated occupancy model
+# dolphin-integrated-occupancy-model.R: this script fits an integrated occupancy model
 #                                       using two independent data sources on bottlenose
 #                                       dolphins in the northwest Mediterranean Sea from
 #                                       Lauret et al. (2021) with the spOccupancy R package.

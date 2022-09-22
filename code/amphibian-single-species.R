@@ -1,6 +1,6 @@
-# single-species-example.R: this script fits a single-species occupancy model 
-#                           using data from Ribeiro Jr. et al. (2018) with 
-#                           the spOccupancy R package. 
+# amphibian-single-species.R: this script fits a single-species occupancy model 
+#                             using data from Ribeiro Jr. et al. (2018) with 
+#                             the spOccupancy R package. 
 # Data source citation:   
 #   Ribeiro Jr, J. W., Siqueira, T., Brejão, G. L., & Zipkin, E. F. (2018). 
 #   Effects of agriculture and topography on tropical amphibian species 
