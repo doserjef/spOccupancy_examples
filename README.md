@@ -101,5 +101,6 @@ We include the following covariates on detection`
 + [Preprint on multi-species occupancy models with species correlations](https://arxiv.org/abs/2204.02707)
 + [spOccupancy website](https://www.jeffdoser.com/files/spoccupancy-web/index.html)
 + [spOccupancy vignettes](https://www.jeffdoser.com/files/spoccupancy-web/articles/index.html)
++ [Package development page on GitHub](https://github.com/doserjef/spOccupancy)
 + Package updates are posted on [twitter](https://twitter.com/jeffdoser18)
 
