@@ -15,8 +15,9 @@ library(ggplot2)
 library(stars)
 library(pals)
 library(cowplot)
-# Set working directory if necessary
-# setwd()
+# If not using the RStudio project, set working directory to the repository
+# directory. 
+# setwd("../")
 # Set seed for same results
 set.seed(250)
 
@@ -51,8 +52,8 @@ out.sp <- spPGOcc(occ.formula = ~ scale(elevation) + I(scale(elevation)^2) + sca
                   data = data.goldfinch, 
                   n.batch = 400, 
                   batch.length = 25,
-		  NNGP = TRUE, 
-		  n.neighbors = 5, 
+                  NNGP = TRUE, 
+                  n.neighbors = 5, 
                   n.thin = 10, 
                   n.burn = 5000, 
                   n.chains = 3,
@@ -104,6 +105,7 @@ X.0 <- cbind(1, elevation.0, elevation.0^2, forest.0)
 out.pred <- predict(out.sp, X.0, coords.0)
 # Occupancy probability means
 psi.0.mean <- apply(out.pred$psi.0.samples, 2, mean)
+# Occupancy probability standard deviations
 psi.0.sd <- apply(out.pred$psi.0.samples, 2, sd)
 # Spatial process mean and sd
 w.0.mean <- apply(out.pred$w.0.samples, 2, mean)
@@ -112,44 +114,43 @@ w.0.sd <- apply(out.pred$w.0.samples, 2, sd)
 
 # Create a species distribution map with uncertainty ----------------------
 plot.df <- data.frame(psi.mean = psi.0.mean,
-		      psi.sd = psi.0.sd,
-		      w.mean = w.0.mean, 
-		      w.sd = w.0.sd,
-		      x = coords.0[, 1],
-		      y = coords.0[, 2])
+                      psi.sd = psi.0.sd,
+                      w.mean = w.0.mean, 
+                      w.sd = w.0.sd,
+                      x = coords.0[, 1],
+                      y = coords.0[, 2])
 pred.stars <- st_as_stars(plot.df, dims = c('x', 'y'))
 psi.mean.plot <- ggplot() +
   geom_stars(data = pred.stars, aes(x = x, y = y, fill = psi.mean),interpolate = TRUE) +
-  scale_fill_gradientn("Occ mean", colors = ocean.tempo(1000), limits = c(0, 1),
-		       na.value = NA) +
-  theme_bw(base_size = 25) +
+  scale_fill_gradientn("", colors = ocean.tempo(1000), limits = c(0, 1),
+                       na.value = NA) +
+  theme_bw(base_size = 18) +
   theme(axis.text.x = element_blank(), 
-	axis.text.y = element_blank()) +
-  labs(x = "Easting", y = "Northing")
+        axis.text.y = element_blank()) +
+  labs(x = "Easting", y = "Northing", title = 'Occupancy Mean')
 psi.sd.plot <- ggplot() +
   geom_stars(data = pred.stars, aes(x = x, y = y, fill = psi.sd),interpolate = TRUE) +
-  scale_fill_gradientn("Occ SD", colors = ocean.tempo(1000), limits = c(0, 1),
-		       na.value = NA) +
-  theme_bw(base_size = 25) +
+  scale_fill_gradientn("", colors = ocean.tempo(1000), limits = c(0, 1),
+                       na.value = NA) +
+  theme_bw(base_size = 18) +
   theme(axis.text.x = element_blank(), 
-	axis.text.y = element_blank()) +
-  labs(x = "Easting", y = "Northing")
+        axis.text.y = element_blank()) +
+  labs(x = "Easting", y = "Northing", title = 'Occupancy SD')
 w.mean.plot <- ggplot() +
   geom_stars(data = pred.stars, aes(x = x, y = y, fill = w.mean),interpolate = TRUE) +
-  scale_fill_gradientn("w mean", colors = ocean.tempo(1000),
-		       na.value = NA) +
-  theme_bw(base_size = 25) +
+  scale_fill_gradientn("", colors = ocean.tempo(1000),
+                       na.value = NA) +
+  theme_bw(base_size = 18) +
   theme(axis.text.x = element_blank(), 
-	axis.text.y = element_blank()) +
-  labs(x = "Easting", y = "Northing")
+        axis.text.y = element_blank()) +
+  labs(x = "Easting", y = "Northing", title = 'Spatial Effect Mean')
 w.sd.plot <- ggplot() +
   geom_stars(data = pred.stars, aes(x = x, y = y, fill = w.sd),interpolate = TRUE) +
-  scale_fill_gradientn("w SD", colors = ocean.tempo(1000),
-		       na.value = NA) +
-  theme_bw(base_size = 25) +
+  scale_fill_gradientn("", colors = ocean.tempo(1000),
+                       na.value = NA) +
+  theme_bw(base_size = 18) +
   theme(axis.text.x = element_blank(), 
-	axis.text.y = element_blank()) +
-  labs(x = "Easting", y = "Northing") 
+        axis.text.y = element_blank()) +
+  labs(x = "Easting", y = "Northing", title = 'Spatial Effect SD') 
 plot_grid(psi.mean.plot, w.mean.plot, 
-	  psi.sd.plot, w.sd.plot, nrow = 2, ncol = 2)
-
+          psi.sd.plot, w.sd.plot, nrow = 2, ncol = 2)

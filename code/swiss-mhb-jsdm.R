@@ -18,8 +18,9 @@ library(pals)
 library(cowplot)
 # For plotting residual covariance matrix
 library(corrplot)
-# Set working directory as necessary
-# setwd()
+# If not using the RStudio project, set working directory to the repository
+# directory. 
+# setwd("../")
 set.seed(101)
 
 # 1. Data prep ------------------------------------------------------------
@@ -47,7 +48,7 @@ out <- sfMsPGOcc(occ.formula = ~ scale(elevation) + I(scale(elevation)^2) + scal
                  NNGP = TRUE,
                  n.factors = 4,
                  n.neighbors = 5,
-		 n.omp.threads = 1,
+                 n.omp.threads = 1,
                  cov.model = 'exponential',
                  n.report = 10)
 summary(out, level = 'community')
@@ -130,16 +131,16 @@ rich.sds <- apply(rich.samples, 2, sd)
 
 # Create prediction map ---------------
 plot.df <- data.frame(rich.mean = rich.means,
-		      rich.sd = rich.sds,
-		      x = coords.0[, 1], 
-		      y = coords.0[, 2])
+                      rich.sd = rich.sds,
+                      x = coords.0[, 1], 
+                      y = coords.0[, 2])
 pred.sf <- st_as_sf(plot.df, coords = c('x', 'y'))
 rich.mean.plot <- ggplot() +
   geom_sf(data = pred.sf, aes(color = rich.mean), size = 0.75) +
   scale_color_gradientn("Richness Mean", colors = ocean.tempo(1000)) +
   theme_bw(base_size = 25) +
   theme(axis.text.x = element_blank(), 
-	axis.text.y = element_blank()) +
+        axis.text.y = element_blank()) +
   labs(x = "Longitude", y = "Latitude", fill = "")
 
 rich.sd.plot <- ggplot() +
@@ -147,7 +148,7 @@ rich.sd.plot <- ggplot() +
   scale_color_gradientn("Richness SD", colors = ocean.tempo(1000)) +
   theme_bw(base_size = 25) +
   theme(axis.text.x = element_blank(), 
-	axis.text.y = element_blank()) +
+        axis.text.y = element_blank()) +
   labs(x = "Longitude", y = "Latitude", fill = "")
 
 plot_grid(rich.mean.plot, rich.sd.plot, ncol = 1)

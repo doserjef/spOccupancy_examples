@@ -15,8 +15,9 @@ library(spOccupancy)
 # For plotting and summarizing results
 library(MCMCvis)
 library(ggplot2)
-# Set working directory if necessary
-# setwd()
+# If not using the RStudio project, set working directory to the repository
+# directory. 
+# setwd("../")
 
 # 1. Data prep ------------------------------------------------------------
 # Read in the data source (reads in an object called data.list)
@@ -88,9 +89,9 @@ psi.avg.by.year <- apply(out$psi.samples, 3, mean)
 # Compute 95% credible interval of average values during each year
 psi.ci.by.year <- apply(out$psi.samples, 3, quantile, c(0.025, 0.975))
 plot.df <- data.frame(year = min(data.list$occ.covs$year):max(data.list$occ.covs$year), 
-		      psi.mean = psi.avg.by.year, 
-		      psi.low = psi.ci.by.year[1, ], 
-		      psi.high = psi.ci.by.year[2, ])
+                      psi.mean = psi.avg.by.year, 
+                      psi.low = psi.ci.by.year[1, ], 
+                      psi.high = psi.ci.by.year[2, ])
 ggplot(data = plot.df, aes(x = year, y = psi.mean)) + 
   geom_point(size = 2.5) + 
   geom_segment(aes(x = year, y = psi.low, yend = psi.high, xend = year), size = 1) + 

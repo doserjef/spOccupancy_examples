@@ -14,6 +14,9 @@ library(spOccupancy)
 # For plotting and summarizing results
 library(MCMCvis)
 library(ggplot2)
+# If not using the RStudio project, set working directory to the repository
+# directory. 
+# setwd("../")
 
 # 1. Data prep ------------------------------------------------------------
 # Read in the data source (reads in an object called data.int)
@@ -84,7 +87,7 @@ names(out.small)
 # Occupancy regression coefficient estimates
 str(out.small$beta.samples)
 # Probability that sea surface temperature (SST) has a positive value on occupancy
-mean(out.small$beta.samples[, 2] > 0)
+mean(out.small$beta.samples[, 3] > 0)
 # Create simple plot summaries using MCMCvis package.
 # Occupancy covariate effects ---------
 MCMCplot(out.small$beta.samples, ref_ovl = TRUE, ci = c(50, 95))

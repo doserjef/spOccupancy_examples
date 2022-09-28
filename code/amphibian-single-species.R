@@ -10,8 +10,9 @@ library(spOccupancy)
 # For plotting and summarizing results
 library(MCMCvis)
 library(ggplot2)
-# Set working directory if necessary
-# setwd()
+# If not using the RStudio project, set working directory to the repository
+# directory. 
+# setwd("../")
 
 # 1. Data prep ------------------------------------------------------------
 # Read in the data source (reads in an object called data.crocar)
